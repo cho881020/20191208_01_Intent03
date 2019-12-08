@@ -11,10 +11,18 @@ class MainActivity : AppCompatActivity() {
 //    1000이라는 숫자만 보면 어떤 의미로 쓰는 값인지 알기 어렵다.
 //    상수로 이름을 지어줘서 읽기 편하게 가공.
     val REQ_CODE_FOR_INPUT_NAME = 1000
+    val REQ_CODE_FOR_INPUT_NICKNAME = 1001
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        inputNickNameBtn.setOnClickListener {
+
+            val intent = Intent(this, EditNickNameActivity::class.java)
+            startActivityForResult(intent, REQ_CODE_FOR_INPUT_NICKNAME)
+
+        }
 
         inputNameBtn.setOnClickListener {
             val intent = Intent(this, EditNameActivity::class.java)
@@ -48,6 +56,13 @@ class MainActivity : AppCompatActivity() {
 
             }
 
+        }
+        else if (requestCode == REQ_CODE_FOR_INPUT_NICKNAME) {
+            if (resultCode == Activity.RESULT_OK) {
+                if (data != null) {
+                    nickNameTxt.text = data.getStringExtra("nickName")
+                }
+            }
         }
 
     }
